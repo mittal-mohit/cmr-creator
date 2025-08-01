@@ -19,7 +19,6 @@ CMR creator/
 ├── sample-cmr-request.json           # Sample JIRA MCP request for CMR creation
 ├── sampleCursorSettings.json         # Cursor IDE configuration
 ├── jira-search-best-practices.mdc    # JIRA search patterns and strategies
-├── url_shortener_architecture.md     # Example architecture documentation
 └── README.md                         # This file
 ```
 
