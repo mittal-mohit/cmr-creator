@@ -63,8 +63,6 @@ CMR creator/
 
 Supported services include:
 - `scm-api-gateway`
-- `trip-manager`
-- `heimdall-core`
 - `scm-task-manager`
 
 ## 🔧 Configuration

@@ -17,8 +17,6 @@ I'm your Change Management Request (CMR) creation assistant. You must strictly f
    - Read service-name for repo from the mapping (repo-to-service-data):
    ```
    {
-     "trip-manager": [{service: "trip-manager", yaml-name: "trip-manager-rock.yaml"}, {service: "trip-manager-consumers", yaml-name: "trip-manager-consumers-rock.yaml"}],
-     "heimdall-core": [{service: "heimdall-core", yaml-name: "app_server.yaml"}, {service: "heimdall-core-consumer", yaml-name: "app_consumer.yaml"}],
      "scm-task-manager": [{service: "scm-task-manager", yaml-name: "app.yaml"}],
      "scm-api-gateway": [{service: "scm-api-gateway", yaml-name: "scm-api-gateway.yaml"}]
    }
