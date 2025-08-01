@@ -1,0 +1,223 @@
+{
+  "tool": "mcp_atlassian-remote-mcp-server_createJiraIssue",
+  "description": "Sample request for creating a Change Management Request (CMR) using JIRA MCP",
+  "parameters": {
+    "cloudId": "company.atlassian.net",
+    "projectKey": "CMR",
+    "issueTypeName": "Story",
+    "summary": "[service-name] Descriptive summary of changes from PR",
+    "description": "Changes in this CMR:\n\n• Key change 1\n• Key change 2\n• Key change 3\n\n**Development**\n\nPR Link\nhttps://github.com/company-org/service-name/pull/123\n\n**Summary by CodeRabbit** ⭐\n\n* **New Features**\n  * Feature description 1\n  * Feature description 2\n* **Bug Fixes**\n  * Bug fix description 1\n* **Chores**\n  * Chore description 1\n\n**changeLogs**\n\n1. **Current running version**\nCompute: container, Running version:1.0.00-1234-abcd123-production\n\n**changes with current prod version**\nhttps://github.com/company-org/service-name/compare/1.0.00-1234...1.0.00-1235\n\n**Quality**\n\n* QA Sign-off\n    * Regression : @Tester Name\n\n* Automation results:\n  https://regression-report-link.com\n\n**Deployment**\n\n* Build - 1.0.00-1235\n* Deployment time : 2025-08-01 3:00 PM\n* Deployment plan/steps\n    Standard deployment with canary rollout\n\n* Monitoring (links to Grafana Dashboard + Logs Location + EC2/Rock Utilisation + New Relic)\n    * Logman: https://logmanv2.company.com/d/service-logs\n    * EagleEye: https://eagleeye.company.com/d/service-metrics\n\n* Canary duration timeline\n    * At 0% canary: Perform sanity.\n    * At 1% canary: Keep for 30 mins.\n    * At 10% canary: Keep for 30 mins.\n    * At 50% canary: Keep for 1 hours.\n\n**Production Sanity Logs:**\nVerify service health endpoints and key metrics\n\nOn call: @Deployment Buddy",
+    "additional_fields": {
+      "customfield_12142": [
+        {
+          "id": "13873",
+          "value": "Code"
+        }
+      ],
+      "customfield_12062": {
+        "id": "19639",
+        "value": "New SLTs added"
+      },
+      "customfield_12047": "1.0.00-1235",
+      "customfield_11690": {
+        "id": "10942",
+        "value": "rng"
+      },
+      "customfield_12445": {
+        "id": "15929",
+        "value": "0"
+      },
+      "customfield_11689": "service-name",
+      "customfield_12141": {
+        "id": "13869",
+        "value": "Yes"
+      },
+      "customfield_11965": {
+        "id": "12811",
+        "value": "Yes"
+      },
+      "customfield_11696": "2025-08-01T15:00:00.000+0530",
+      "customfield_14058": {
+        "type": "doc",
+        "version": 1,
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Deployment Steps:",
+                "marks": [
+                  {
+                    "type": "strong"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Dashboard : "
+              },
+              {
+                "type": "text",
+                "text": "https://deployment.company.com/success",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "https://deployment.company.com/success"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Build No : "
+              },
+              {
+                "type": "text",
+                "text": "1.0.00-1235",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "https://github.com/company-org/service-name/releases/tag/1.0.00-1235"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Commit ID : abcd123456789"
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "Rollback Steps:",
+                "marks": [
+                  {
+                    "type": "strong"
+                  }
+                ]
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "https://deployment.company.com/success",
+                "marks": [
+                  {
+                    "type": "link",
+                    "attrs": {
+                      "href": "https://deployment.company.com/success"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "Stop canary:",
+                "marks": [
+                  {
+                    "type": "strong"
+                  }
+                ]
+              },
+              {
+                "type": "hardBreak"
+              },
+              {
+                "type": "text",
+                "text": "coast stop canary rock -s service-name -e production -r region -t company.cloud",
+                "marks": [
+                  {
+                    "type": "code"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "field_mappings": {
+    "customfield_12142": "Change Type (Code/Hot-Fix)",
+    "customfield_12062": "Change Reason",
+    "customfield_12047": "Build Version",
+    "customfield_11690": "Region",
+    "customfield_12445": "Priority",
+    "customfield_11689": "Service Name",
+    "customfield_12141": "Business Impact",
+    "customfield_11965": "Pre-deployment Checklist",
+    "customfield_11696": "Deployment Time",
+    "customfield_14058": "Deployment Steps (Rich Text)"
+  },
+  "usage_notes": {
+    "change_type_detection": "If ANY file doesn't have .conf or .yaml extension → 'Code', If ALL files have .conf or .yaml extensions → 'Hot-Fix'",
+    "datetime_format": "Use ISO 8601 format with timezone: YYYY-MM-DDThh:mm:00.000+0530",
+    "rich_text_format": "customfield_14058 requires ProseMirror document format with proper node structure",
+    "deployment_timeline": "Standard canary: 0% → 1% (30min) → 10% (30min) → 50% (1hr)",
+    "monitoring_links": "Include service-specific Logman and EagleEye dashboard URLs"
+  },
+  "example_variations": {
+    "change_types": [
+      {
+        "value": "Code",
+        "id": "13873",
+        "description": "Code changes including new features, bug fixes, refactoring"
+      },
+      {
+        "value": "Hot-Fix",
+        "id": "13874",
+        "description": "Configuration-only changes (.conf, .yaml files)"
+      }
+    ],
+    "priorities": [
+      {
+        "value": "0",
+        "id": "15929",
+        "description": "Normal priority"
+      },
+      {
+        "value": "1",
+        "id": "15930",
+        "description": "High priority"
+      }
+    ],
+    "regions": [
+      {
+        "value": "rng",
+        "id": "10942",
+        "description": "Singapore region"
+      },
+      {
+        "value": "mumbai",
+        "id": "10943",
+        "description": "Mumbai region"
+      }
+    ]
+  }
+}

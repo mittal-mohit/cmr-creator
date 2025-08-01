@@ -18,7 +18,8 @@ CMR creator/
 │   └── rules/
 │       ├── cmr-create-prompt.mdc     # Main CMR creation assistant prompt
 │       └── jira-search-best-practices.mdc  # JIRA search optimization guide
-├── aCursorRules.js                   # Cursor IDE configuration
+├── sample-cmr-request.json           # Sample JIRA MCP request for CMR creation
+├── sampleCursorSettings.json         # Cursor IDE configuration
 ├── jira-search-best-practices.mdc    # JIRA search patterns and strategies
 ├── url_shortener_architecture.md     # Example architecture documentation
 └── README.md                         # This file
@@ -37,6 +38,12 @@ CMR creator/
 - Reliable project-based searches with absolute date ranges
 - Service-specific search patterns
 - Common pitfalls and solutions
+
+### Sample CMR Request (`sample-cmr-request.json`)
+- Complete example of JIRA MCP createJiraIssue request structure
+- All required custom fields with proper IDs and values
+- Rich text formatting for deployment steps
+- Field mappings and usage notes for reference
 
 ## 📋 Usage
 
