@@ -18,7 +18,6 @@ CMR creator/
 │       └── jira-search-best-practices.mdc  # JIRA search optimization guide
 ├── sample-cmr-request.json           # Sample JIRA MCP request for CMR creation
 ├── sampleCursorSettings.json         # Cursor IDE configuration
-├── jira-search-best-practices.mdc    # JIRA search patterns and strategies
 └── README.md                         # This file
 ```
 
