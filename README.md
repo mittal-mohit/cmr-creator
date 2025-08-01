@@ -1,6 +1,6 @@
 # CMR Creator
 
-A comprehensive toolkit for creating Change Management Requests (CMRs) for enterprise deployment processes.
+A comprehensive toolkit for creating Change Management Requests (CMRs) for Swiggy's deployment process.
 
 ## 🚀 Features
 
@@ -44,7 +44,7 @@ CMR creator/
 
 1. **Basic CMR Creation:**
    ```
-   create CMR for this PR - @https://github.com/company-org/service-name/pull/123
+   create CMR for this PR - @https://github.com/swiggy-private/service-name/pull/123
    ```
 
 2. **Deployment Preferences:**
@@ -76,7 +76,7 @@ Pre-configured monitoring dashboards:
 ### Deployment Timeline
 Standard canary deployment process:
 - 0% canary: Sanity checks
-- 1% canary: 30 minutes observation  
+- 1% canary: 30 minutes observation
 - 10% canary: 30 minutes observation
 - 50% canary: 1 hour observation
 
@@ -90,7 +90,7 @@ The CMR creator now includes enhanced CodeRabbit support:
 
 Categories supported:
 - New Features
-- Bug Fixes  
+- Bug Fixes
 - Chores
 - Tests
 - Documentation
@@ -141,4 +141,4 @@ When updating:
 
 ---
 
-**Created for streamlined CMR generation in enterprise environments** 🚀
+**Created for streamlined CMR generation at Swiggy Engineering** 🚀
