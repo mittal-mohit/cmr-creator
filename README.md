@@ -1,118 +1,58 @@
 # CMR Creator
 
+A comprehensive toolkit for creating Change Management Requests (CMRs) from pull requests with automated JIRA integration.
+
 ## 🚀 Features
 
-- **Automated CMR Generation**: Create CMRs from pull requests with enhanced CodeRabbit integration
-- **Service Discovery**: Automatic mapping of repositories to services
-- **Version Management**: Intelligent base and merge commit tag identification
-- **Deployment Planning**: Pre-configured deployment steps and monitoring links
-- **JIRA Integration**: Direct integration with Atlassian JIRA for CMR creation
+- **Automated CMR Generation**: Create CMRs from PRs with CodeRabbit integration
+- **Service Discovery**: Automatic repo-to-service mapping and version identification
+- **JIRA Integration**: Direct CMR creation with proper formatting and custom fields
+- **Deployment Planning**: Pre-configured steps, monitoring links, and canary timelines
 
 ## 📁 Project Structure
 
 ```
 CMR creator/
-├── .cursor/
-│   └── rules/
-│       ├── cmr-create-prompt.mdc     # Main CMR creation assistant prompt
-│       └── jira-search-best-practices.mdc  # JIRA search optimization guide
-├── sample-cmr-request.json           # Sample JIRA MCP request for CMR creation
-├── sampleCursorSettings.json         # Cursor IDE configuration
-├── jira-search-best-practices.mdc    # JIRA search patterns and strategies
-├── url_shortener_architecture.md     # Example architecture documentation
-└── README.md                         # This file
+├── .cursor/rules/                    # AI assistant configuration
+├── sample-cmr-request.json          # Complete JIRA MCP request example
+├── jira-search-best-practices.mdc   # JIRA search optimization guide
+└── sampleCursorSettings.json        # Cursor IDE settings
 ```
 
-## 🛠️ Key Components
+## 📋 Quick Start
 
-### CMR Creation Assistant (`cmr-create-prompt.mdc`)
-- **Step A**: Repository analysis, service discovery, and version identification
-- **Step B**: Deployment preferences and required inputs collection
-- **Step C**: JIRA payload preparation and CMR creation
-- **Enhanced CodeRabbit Integration**: Automatic extraction of CodeRabbit summaries from PRs
+**Create CMR from PR:**
+```
+create CMR for this PR - @https://github.com/company-org/service-name/pull/123
+```
 
-### JIRA Search Best Practices (`jira-search-best-practices.mdc`)
-- Proven search strategies for JIRA tickets
-- Reliable project-based searches with absolute date ranges
-- Service-specific search patterns
-- Common pitfalls and solutions
+**Follow the A→B→C workflow:**
+- **Step A**: Repository analysis and version identification
+- **Step B**: Deployment preferences (day, time, buddies, regression links)
+- **Step C**: Automated JIRA CMR creation
 
-### Sample CMR Request (`sample-cmr-request.json`)
-- Complete example of JIRA MCP createJiraIssue request structure
-- All required custom fields with proper IDs and values
-- Rich text formatting for deployment steps
-- Field mappings and usage notes for reference
-
-## 📋 Usage
-
-### Creating a CMR from PR
-
-1. **Basic CMR Creation:**
-   ```
-   create CMR for this PR - @https://github.com/swiggy-private/service-name/pull/123
-   ```
-
-2. **Deployment Preferences:**
-   - Choose deployment day (Today/Tomorrow)
-   - Select preferred time slot
-   - Provide regression report links
-   - Specify deployment buddy names
-
-3. **Automatic Processing:**
-   - Service discovery from repository mapping
-   - Version tag identification and comparison links
-   - CodeRabbit summary extraction
-   - JIRA CMR creation with proper formatting
-
-### Service Mapping
-
-Supported services include:
+**Supported Services:**
 - `scm-api-gateway`
 - `scm-task-manager`
 
-## 🔧 Configuration
+## 🛠️ Key Components
 
-### Monitoring Links
-Pre-configured monitoring dashboards:
-- **Logman**: Service-specific log monitoring
-- **EagleEye**: Metrics and performance monitoring
-- **Deployment Dashboard**: Canary deployment tracking
-
-### Deployment Timeline
-Standard canary deployment process:
-- 0% canary: Sanity checks
-- 1% canary: 30 minutes observation
-- 10% canary: 30 minutes observation
-- 50% canary: 3 hour observation
-
-## 📈 CodeRabbit Integration
-
-The CMR creator now includes enhanced CodeRabbit support:
-
-- **Priority 1**: Extract CodeRabbit summaries from PR bodies
-- **Priority 2**: Include CodeRabbit walkthrough comments
-- **Priority 3**: Fallback to manual PR summarization
-
-Categories supported:
-- New Features
-- Bug Fixes
-- Chores
-- Tests
-- Documentation
-- Refactor
-- Performance
+**CMR Creation Assistant** - Complete A→B→C workflow with CodeRabbit integration
+**Sample Request JSON** - Full JIRA MCP structure with all required fields
+**JIRA Search Guide** - Proven search patterns and troubleshooting
 
 ## 🎯 Best Practices
 
-### JIRA Searches
-- Use exact service names: `project = "Change Management" AND summary ~ "service-name"`
-- Employ absolute date ranges: `created >= "2025-01-01"`
-- Avoid relative date syntax (`-6m`, `-3m`) - unreliable in JIRA
+**JIRA Searches:**
+- Use: `project = "Change Management" AND summary ~ "service-name"`
+- Use absolute dates: `created >= "2025-01-01"`
+- Avoid relative syntax (`-6m`) - unreliable
 
-### CMR Creation
-- Always include comprehensive monitoring links
-- Provide clear rollback procedures
-- Include specific sanity check steps
+**CMR Creation:**
+- Include monitoring links and rollback procedures
 - Mention deployment buddies with @mentions
+- Follow standard canary timeline: 0% → 1% (30min) → 10% (30min) → 50% (1hr)
 
 ---
+
+**Enterprise CMR automation toolkit** 🚀
