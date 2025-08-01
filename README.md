@@ -1,7 +1,5 @@
 # CMR Creator
 
-A comprehensive toolkit for creating Change Management Requests (CMRs) for Swiggy's deployment process.
-
 ## 🚀 Features
 
 - **Automated CMR Generation**: Create CMRs from pull requests with enhanced CodeRabbit integration
@@ -85,7 +83,7 @@ Standard canary deployment process:
 - 0% canary: Sanity checks
 - 1% canary: 30 minutes observation
 - 10% canary: 30 minutes observation
-- 50% canary: 1 hour observation
+- 50% canary: 3 hour observation
 
 ## 📈 CodeRabbit Integration
 
@@ -117,35 +115,4 @@ Categories supported:
 - Include specific sanity check steps
 - Mention deployment buddies with @mentions
 
-## 🔗 Dependencies
-
-- **Coast CLI**: For service version management
-- **GitHub MCP**: For pull request analysis
-- **Atlassian MCP**: For JIRA integration
-- **Git**: For repository operations
-
-## 📚 Documentation Standards
-
-- Follow markdown best practices
-- Include comprehensive examples
-- Maintain clear step-by-step guides
-- Update service mappings as needed
-
-## 🚀 Getting Started
-
-1. Clone this repository
-2. Configure your environment with required CLI tools
-3. Use the CMR creation prompts in your AI assistant
-4. Follow the A → B → C workflow strictly
-
-## 🤝 Contributing
-
-When updating:
-- Maintain the strict A → B → C workflow
-- Test with actual PRs before committing
-- Update service mappings for new repositories
-- Document any new monitoring links
-
 ---
-
-**Created for streamlined CMR generation at Swiggy Engineering** 🚀
