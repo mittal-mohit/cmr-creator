@@ -1,0 +1,108 @@
+{
+    "files.autoSave": "afterDelay",
+    "editor.fontSize": 16,
+    "editor.wordWrap": "on",
+    "terminal.integrated.fontSize": 18,
+    "files.trimTrailingWhitespace": true,
+    "terminal.integrated.fontFamily": "monospace",
+    "editor.fontFamily": "'JetBrains Mono', Consolas, 'Courier New', monospace",
+    "yaml.schemas": {
+        "file:///Users/mohit.mittal/.vscode/extensions/atlassian.atlascode-3.0.1/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
+    },
+    "redhat.telemetry.enabled": false,
+    "security.workspace.trust.untrustedFiles": "open",
+    "extensions.ignoreRecommendations": true,
+    "git.autofetch": true,
+    "editor.cursorSmoothCaretAnimation": "on",
+    "workbench.colorCustomizations": {
+        "[Default Dark Modern]": {
+            "tab.activeBorderTop": "#00FF00",
+            "tab.unfocusedActiveBorderTop": "#00FF0088",
+            "textCodeBlock.background": "#00000055"
+        },
+        "editor.wordHighlightStrongBorder": "#FF6347",
+        "editor.wordHighlightBorder": "#FFD700",
+        "editor.selectionHighlightBorder": "#A9A9A9"
+    },
+    "cursor.cpp.enablePartialAccepts": true,
+    "workbench.colorTheme": "Jetbrains Dark Theme",
+    "editor.gotoLocation.multipleDefinitions": "gotoAndPeek",
+    "editor.quickSuggestions": { "strings": "on" },
+    "editor.linkedEditing": true,
+    "editor.bracketPairColorization.enabled": true,
+    "workbench.editor.revealIfOpen": true,
+    "editor.unicodeHighlight.includeComments": true,
+    "editor.wordHighlightBorder": "#FFD700",
+    "editor.wordHighlightStrongBorder": "#FF6347",
+    "editor.selectionHighlightBorder": "#A9A9A9",
+    "editor.rulers": [
+        { "column": 80, "color": "#00FF0010" },
+        { "column": 100, "color": "#BDB76B15" },
+        { "column": 120, "color": "#FA807219" }
+    ],
+    "window.commandCenter": 1,
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "modifications",
+    "workbench.settings.applyToAllProfiles": [
+        "editor.fontFamily",
+        "editor.fontSize",
+        "editor.gotoLocation.multipleDefinitions",
+        "editor.quickSuggestions",
+        "workbench.activityBar.orientation",
+        "cSpell.blockCheckingWhenTextChunkSizeGreaterThan"
+    ],
+    "go.editorContextMenuCommands": {
+        "testPackage": true,
+        "generateTestForPackage": true,
+        "generateTestForFile": true
+    },
+    "go.installDependenciesWhenBuilding": true,
+    "go.lintTool": "golint",
+    "go.toolsManagement.autoUpdate": true,
+    "go.trace.server": "verbose",
+    "accessibility.dimUnfocused.enabled": true,
+    "typescript.implementationsCodeLens.enabled": true,
+    "java.implementationCodeLens": "all",
+    "go.inlayHints.constantValues": true,
+    "go.inlayHints.variableTypes": true,
+    "go.inlayHints.parameterNames": true,
+    "go.inlayHints.functionTypeParameters": true,
+    "go.useLanguageServer": true,
+    "go.languageServerFlags": ["-rpc.trace"],
+    "go.testFlags": ["-v"],
+    "gradle.debug": true,
+    "gradle.showStoppedDaemons": true,
+    "roo-cline.allowedCommands": [
+        "npm test",
+        "npm install",
+        "tsc",
+        "git log",
+        "git diff",
+        "git show"
+    ],
+    "cursor.composer.shouldAllowCustomModes": true,
+    "cursor.composer.shouldChimeAfterChatFinishes": true,
+    "emmet.variables": {
+        "lang": "en"
+    },
+    "cSpell.diagnosticLevel": "Hint",
+    "trailing-spaces.backgroundColor": "rgba(255,0,0,0.1)",
+    "trailing-spaces.includeEmptyLines": false,
+    "terminal.integrated.tabs.hideCondition": "never",
+    "terminal.integrated.enablePersistentSessions": true,
+    "java.compile.nullAnalysis.mode": "automatic",
+    "java.configuration.detectJdksAtStart": false,
+    "makefile.loggingLevel": "Verbose",
+    "makefile.configureOnOpen": true,
+    "diffEditor.hideUnchangedRegions.enabled": true,
+    "editor.fontLigatures": false,
+    "go.toolsEnvVars": {
+        "GOPRIVATE": "github.com/swiggy-private/*",
+        "GOPROXY": "https://proxy.golang.org,direct"
+    },
+    "projectManager.git.baseFolders": [
+        "/Users/mohit.mittal/Documents"
+    ],
+    "window.nativeTabs": true,
+    "cursor.composer.textSizeScale": 1.15
+}
