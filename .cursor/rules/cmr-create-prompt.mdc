@@ -1,0 +1,262 @@
+---
+description: Use this prompt when requested to generate a CMR for a pull request.
+globs:
+alwaysApply: false
+---
+# CMR Creation Assistant - Enhanced with Practical Learnings
+
+I'm your Change Management Request (CMR) creation assistant. You must strictly follow the steps in order: A → B → C. No skipping or reordering.
+
+## A. Step A – Compare Link, Summary, and Service Discovery
+
+1. **Repository and PR Analysis**
+   - You will be given a repository name and a list of merged PR URLs
+   - Use GitHub MCP to fetch each PR (get_pull_request) and sort them by merged_at
+
+2. **Service Discovery**
+   - Read service-name for repo from the mapping (repo-to-service-data):
+   ```
+   {
+     "trip-manager": [{service: "trip-manager", yaml-name: "trip-manager-rock.yaml"}, {service: "trip-manager-consumers", yaml-name: "trip-manager-consumers-rock.yaml"}],
+     "heimdall-core": [{service: "heimdall-core", yaml-name: "app_server.yaml"}, {service: "heimdall-core-consumer", yaml-name: "app_consumer.yaml"}],
+     "scm-task-manager": [{service: "scm-task-manager", yaml-name: "app.yaml"}],
+     "scm-api-gateway": [{service: "scm-api-gateway", yaml-name: "scm-api-gateway.yaml"}]
+   }
+   ```
+   - Use all unique extracted service names for:
+     - Extract Deployed Versions: `coast get runningVersion -s [service_name] -e production -t swiggy.cloud -r singapore`
+     - Services for rollback steps
+     - Primary service (first one) for Jira field customfield_11689
+
+3. **Version Identification**
+   - **base_commit_tag**: Get least tag from the deployed versions (e.g., 1.0.00-1234)
+   - **merge_commit_tag**:
+     - Get PR merge commit SHA from GitHub API
+     - Check if merge commit SHA is associated with any tags
+     - If not found, retry with 2-minute intervals, up to 3 times
+     - If failed after retry, fail execution with summary
+
+4. **Git Compare Link**
+   - Format: `https://github.com/swiggy-private/<repo>/compare/{base_commit_tag}...{merge_commit_tag}`
+
+5. **PR Summary Extraction** ⭐ **ENHANCED WITH CODERABBIT SUPPORT**
+   - For each PR, extract comprehensive information:
+
+   **A. CodeRabbit Summary Extraction (Priority 1)**:
+   - Look for CodeRabbit summary in PR body between these HTML comments:
+     ```
+     <!-- This is an auto-generated comment: release notes by coderabbit.ai -->
+     ## Summary by CodeRabbit
+     [content]
+     <!-- end of auto-generated comment: release notes by coderabbit.ai -->
+     ```
+   - Extract the entire CodeRabbit section including categories like:
+     - **New Features**
+     - **Bug Fixes**
+     - **Chores**
+     - **Tests**
+     - **Documentation**
+     - **Refactor**
+     - **Performance**
+
+   **B. CodeRabbit Walkthrough Extraction (Priority 2)**:
+   - Search PR comments for CodeRabbit walkthrough comments
+   - Look for comments by users containing "walkthrough" or detailed file-by-file analysis
+   - These typically contain structured breakdowns of changes by file/module
+
+   **C. Fallback Summary (Priority 3)**:
+   - If no CodeRabbit summary exists, summarize the full PR body
+   - Include contributor name, PR link, and description
+
+   **D. Change Type Detection**:
+     - If ANY file doesn't have .conf or .yaml extension → "Code"
+     - If ALL files have .conf or .yaml extensions → "Hot-Fix"
+
+## B. Step B – Ask User Deployment Preferences and Required Inputs
+
+1. **Deployment Schedule**
+   - Ask: "Deployment day – Today or Tomorrow?"
+   - Ask for preferred time from: 10 AM, 9 AM, 2:30 PM, 3 PM, 3:30 PM, 4 PM, 4:30 PM, 5 PM
+
+2. **Required Links and Information**
+   - Logman link (if not found in mapping)
+   - Eagleeye link (if not found in mapping)
+   - Regression report links (1 or more)
+   - Deployment Buddy names (mention them with @)
+
+## C. Step C – Prepare Final Jira Payload and Submit
+
+**CRITICAL**: Use `mcp_atlassian-remote-mcp-server_createJiraIssue` tool (NOT mcp-atlassian)
+
+### For New CMR Creation:
+
+```javascript
+mcp_atlassian-remote-mcp-server_createJiraIssue({
+  "cloudId": "swiggy.atlassian.net",
+  "projectKey": "CMR",
+  "issueTypeName": "Story",
+  "summary": "[service-name] [descriptive summary from PR]",
+  "description": "[Full formatted description - see template below]",
+  "additional_fields": {
+    "customfield_12142": [{"id": "13873", "value": "Code"}],
+    "customfield_12062": {"id": "19639", "value": "New SLTs added"}, // Use actual value based on context
+    "customfield_12047": "[merge_commit_tag]", // Build version
+    "customfield_11690": {"id": "10942", "value": "rng"}, // Region
+    "customfield_12445": {"id": "15929", "value": "0"}, // Priority
+    "customfield_11689": "[Primary Service Name]", // Service name
+    "customfield_12141": {"id": "13869", "value": "Yes"}, // Business Impact
+    "customfield_11965": {"id": "12811", "value": "Yes"}, // Pre-deployment checklist
+    "customfield_11696": "[YYYY-MM-DDThh:mm:00.000+0530]", // Deployment time
+    "customfield_14058": { // Deployment steps in rich text format
+      "type": "doc",
+      "version": 1,
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [{"type": "text", "text": "Deployment Steps:", "marks": [{"type": "strong"}]}]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {"type": "text", "text": "Dashboard : "},
+            {"type": "text", "text": "https://deployment.swiggyops.de/success", "marks": [{"type": "link", "attrs": {"href": "https://deployment.swiggyops.de/success"}}]}
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {"type": "text", "text": "Build No : "},
+            {"type": "text", "text": "[merge_commit_tag]", "marks": [{"type": "link", "attrs": {"href": "https://github.com/swiggy-private/[repo]/releases/tag/[merge_commit_tag]"}}]}
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {"type": "text", "text": "Commit ID : [commit_sha]"},
+            {"type": "hardBreak"},
+            {"type": "text", "text": "Rollback Steps:", "marks": [{"type": "strong"}]},
+            {"type": "hardBreak"},
+            {"type": "text", "text": "https://deployment.swiggyops.de/success", "marks": [{"type": "link", "attrs": {"href": "https://deployment.swiggyops.de/success"}}]}
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {"type": "text", "text": "Stop canary:", "marks": [{"type": "strong"}]},
+            {"type": "hardBreak"},
+            {"type": "text", "text": "coast stop canary rock -s [service-name] -e production -r singapore -t swiggy.cloud", "marks": [{"type": "code"}]}
+          ]
+        }
+      ]
+    }
+  }
+})
+```
+
+### Enhanced Description Template with CodeRabbit Integration:
+```
+Changes in this CMR:
+
+[Bullet points of key changes from PR summaries]
+
+**Development**
+
+PR Link
+[List of PR links with proper markdown formatting]
+
+**Summary by CodeRabbit** ⭐ **NEW ENHANCED SECTION**
+
+[Include the complete CodeRabbit summary here, preserving the original formatting with categories like:]
+
+* **New Features**
+  * [CodeRabbit generated feature descriptions]
+* **Bug Fixes**
+  * [CodeRabbit generated bug fix descriptions]
+* **Chores**
+  * [CodeRabbit generated chore descriptions]
+* **Tests**
+  * [CodeRabbit generated test descriptions]
+
+[If CodeRabbit walkthrough exists, include it in a separate section:]
+
+**Technical Walkthrough**
+[Include detailed file-by-file analysis from CodeRabbit walkthrough comments]
+
+**changeLogs**
+
+1. **Current running version**
+[Include coast command output showing current version]
+
+**changes with current prod version**
+[GitHub compare link]
+
+**Quality**
+
+* QA Sign-off
+    * Regression : [Regression tester names with @mentions]
+
+* Automation results:
+  [Regression report links]
+
+**Deployment**
+
+* Build - [merge_commit_tag]
+* Deployment time : [formatted date and time]
+* Deployment plan/steps
+    [Specific deployment steps including any config changes needed]
+
+* Monitoring (links to Grafana Dashboard + Logs Location + EC2/Rock Utilisation + New Relic)
+    * Logman: [Logman link]
+    * EagleEye: [EagleEye link with specific metrics]
+
+* Canary duration timeline
+    * At 0% canary: Perform sanity.
+    * At 1% canary: Keep for 30 mins.
+    * At 10% canary: Keep for 30 mins.
+    * At 50% canary: Keep for 1 hours.
+
+**Production Sanity Logs:**
+[Specific sanity check procedures and API calls to validate deployment]
+
+On call: [Deployment buddy names with @mentions]
+```
+
+### Service-Specific Monitoring Links:
+```json
+{
+  "scm-api-gateway": {
+    "logman": "https://logmanv2.swiggyops.de/d/cdt0tdse768lcf/service-logs?orgId=1&var-service=scm-api-gateway&var-env=All&var-Search=",
+    "eagleeye": "https://eagleeye.swiggyops.de/d/mUneF_Gnz/scm-api-gateway?orgId=1"
+  }
+}
+```
+
+### For Updating Existing CMR:
+Use `mcp_atlassian-remote-mcp-server_editJiraIssue` with same field structure.
+
+## ⭐ **NEW - CodeRabbit Integration Guidelines**:
+
+### CodeRabbit Summary Format Recognition:
+1. **HTML Comment Pattern**: Look for `<!-- This is an auto-generated comment: release notes by coderabbit.ai -->`
+2. **Section Structure**: Extract content between start and end comments
+3. **Category Preservation**: Maintain original categories (New Features, Bug Fixes, etc.)
+4. **Walkthrough Detection**: Search PR comments for detailed file analysis from CodeRabbit
+
+### CodeRabbit Content Enhancement:
+- **Always prioritize CodeRabbit summaries** over manual PR body summarization
+- **Include walkthrough details** when available for technical context
+- **Preserve formatting** of CodeRabbit outputs (bullet points, categories)
+- **Extract specific technical details** like API changes, configuration updates, etc.
+
+## Key Success Factors (Learned from CMR-146781):
+
+1. **Always use the full MCP tool name**: `mcp_atlassian-remote-mcp-server_createJiraIssue`
+2. **Use `swiggy.atlassian.net` as cloudId**
+3. **Rich text format** is required for `customfield_14058` (deployment steps)
+4. **Correct field IDs** are critical - use the ones that worked in successful CMRs
+5. **Include comprehensive monitoring** links and sanity check procedures
+6. **Format deployment timeline** clearly with specific canary stages
+7. **Always include rollback commands** in deployment steps
+8. **⭐ NEW: Always extract and include CodeRabbit summaries** for comprehensive technical context
+
+Do not include any additional formatting tags or incorrect tool references.
